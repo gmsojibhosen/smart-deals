@@ -13,40 +13,48 @@ import Register from "./components/Register/Register.jsx";
 import Login from "./components/Login/Login.jsx";
 import MyProducts from "./components/MyProducts/MyProducts.jsx";
 import MyBids from "./components/MyBids/MyBids.jsx";
+import PrivateRouter from "./components/PrivateRouter/PrivateRouter.jsx";
+import ProductDetails from "./components/ProductDetails/ProductDetails.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    Component: RootLayout,
+    element: <RootLayout />,
     children: [
       {
         index: true,
-        Component: Home,
+        element: <Home />,
+        loader: () => fetch("http://localhost:3000/latest_products"),
       },
+      { path: "allProducts", element: <AllProducts /> },
       {
-        path: "allProducts",
-        Component: AllProducts,
+        path: "productDetails/:id",
+
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/products/${params.id}`),
+        element: <ProductDetails />,
       },
-      {
-        path: "register",
-        Component: Register,
-      },
-      {
-        path: "login",
-        Component: Login,
-      },
+      { path: "register", element: <Register /> },
+      { path: "login", element: <Login /> },
       {
         path: "myProducts",
-        element: MyProducts,
+        element: (
+          <PrivateRouter>
+            <MyProducts />
+          </PrivateRouter>
+        ),
       },
       {
         path: "myBids",
-        element: MyBids,
+        element: (
+          <PrivateRouter>
+            <MyBids />
+          </PrivateRouter>
+        ),
       },
     ],
   },
 ]);
-
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AuthProvider>

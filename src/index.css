@@ -4,10 +4,15 @@
   themes: light --default;
 }
 
+/* ✅ Custom button style */
+.btn-primary {
+  @apply bg-gradient-to-r from-[#632EE3] to-[#9F62F2] border-none text-white;
+}
 
-@plugin "daisyui/theme" {
-  name: "light";
-  default: true;
-  --color-primary: blue;
-  --color-secondary: teal;
+.btn-primary:hover {
+  @apply opacity-90
+}
+
+.text-primary {
+  @apply bg-gradient-to-r from-[#632EE3] to-[#9F62F2] bg-clip-text text-transparent;
 }

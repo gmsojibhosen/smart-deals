@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router";
 
 const Login = () => {
   return (
@@ -26,7 +27,7 @@ const Login = () => {
           <p className="text-center">OR</p>
 
           <button
-            onClick={handleGoogleSignIn}
+            onClick={''}
             className="btn bg-white text-black border-[#e5e5e5] mb-5"
           >
             <svg
